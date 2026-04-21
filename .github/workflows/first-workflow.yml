@@ -1,58 +1,78 @@
-# name: First Workflow
+# # name: First Workflow
+
+# # on:
+# #   push:
+# #     branches:
+# #       - master
+
+# # jobs:
+# #   test-job:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Print message
+# #         run: echo "GitHub Actions is working!"
+
+# #   second-job:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: Say Hello
+# #         run: echo "Hello!"
+
+# #       - name: Show Date
+# #         run: date
+
+# #   third-job:
+# #     runs-on: ubuntu-latest
+
+# #     steps:
+# #       - name: List Files
+# #         run: ls -la
+# name: Uses action
 
 # on:
 #   push:
+#   pull_request:
 #     branches:
-#       - master
+#       - main
 
 # jobs:
-#   test-job:
+#   test:
 #     runs-on: ubuntu-latest
 
 #     steps:
-#       - name: Print message
-#         run: echo "GitHub Actions is working!"
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-#   second-job:
-#     runs-on: ubuntu-latest
+#       - name: Setup Node
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 18
 
-#     steps:
-#       - name: Say Hello
-#         run: echo "Hello!"
+#       - name: Check Node version
+#         run: node -v
 
-#       - name: Show Date
-#         run: date
-
-#   third-job:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: List Files
-#         run: ls -la
-name: Uses action
-
-on:
-  push:
-  pull_request:
-    branches:
-      - main
-
+#       - name: List files
+#         run: ls
+        name : Uses Action
+on : push
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name : Checkout code // clone a repo
+        uses : actions/checkout@v4
+      
+      - name : setup node
+        uses : actions/setup-node@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      - name : Download dependency
+        run : npm i 
 
-      - name: Check Node version
-        run: node -v
+      - name : Run tests
+        run : npm run test
 
-      - name: List files
-        run: ls
-        
+      - name : list file
+        run : ls
